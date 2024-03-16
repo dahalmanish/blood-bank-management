@@ -1,19 +1,23 @@
 import React from 'react';
 import Button from '../Button/Button';
+import { Link } from "react-router-dom";
 
-const Navbar = () => {
-    return (
-        <div className='bg-red-600'>
-        <nav className='container flex mx-auto  justify-between p-5'>
-            <h1 className='text-white text-4xl'>BLOODBANK</h1>
-            <ul className='list-none flex items-center no-underline gap-12 text-white font-medium cursor-pointer'>  
-                <li className='hover:scale-110 transition-all text-lg '><link rel="stylesheet" href="" />HOME</li>
-                <li className='hover:scale-110 transition-all text-lg '><link rel="stylesheet" href="" />DONATE BLOOD</li>
-                <li className='hover:scale-110 transition-all text-lg '><link rel="stylesheet" href="" />ORDER BLOOD</li>
-            </ul>
-            <Button title={"Login"}/>
-        </nav>
-        </div>
-    )
+class NavBar extends React.Component {
+    render() { 
+        return (
+            <div className='bg-red-600'>
+                <nav className='container flex mx-auto justify-between p-5'>
+                    <h1 className='text-white text-4xl'>BLOODBANK</h1>
+                    <ul className='list-none flex items-center no-underline gap-12 text-white font-medium cursor-pointer'>  
+                        <li className='hover:scale-110 transition-all text-lg '><Link to="/">HOME</Link></li>
+                        <li className='hover:scale-110 transition-all text-lg'><Link to="/DonateBlood" target="_blank" >Donate Blood</Link></li>
+                        <li className='hover:scale-110 transition-all text-lg'><Link to="/OrderBlood">Order Blood</Link></li>
+                    </ul>
+                    <Button title={"Login"}/>
+                </nav>
+            </div>
+        ); 
+    }
 }
-export default Navbar;
+
+export default NavBar;
