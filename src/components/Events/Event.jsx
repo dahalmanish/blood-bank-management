@@ -2,12 +2,20 @@ import React from "react";
 
 const Event = () => {
     return(
+<<<<<<< HEAD
         <div className="container mx-auto leading-10">
+=======
+        <div className="leading-10">
+>>>>>>> fc9be08503aed6925dec2452606b28fc0c9f2f82
             <h1 className="text-3xl font-bold m-10">EVENT</h1>
         <div className="flex gap-4">
         <div className="relative inline-block hover:scale-90 transition-all">
           <img
+<<<<<<< HEAD
             src="./images/1.jpg" alt="" className=" w-full h-auto"
+=======
+            src="./images/1.jpg" alt="" className="w-full h-auto"
+>>>>>>> fc9be08503aed6925dec2452606b28fc0c9f2f82
           />
           <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-50 text-white">
             <span className="text-3xl font-bold">Om hospital <br />Oct 20</span>  
