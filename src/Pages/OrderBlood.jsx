@@ -4,7 +4,6 @@ import Orderform from "../components/Orderform/Orderform";
 const OrderBlood = () => {
     return(
         <div>
-            <NavBar/>
             <Orderform/>
         </div>
     )

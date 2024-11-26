@@ -3,6 +3,7 @@ import Navbar from '../Navbar/Navbar';
 import Hero from '../Hero/Hero';
 import Article from '../Article/Article';
 import Event from '../Events/Event';
+import Footer from "../Footer";
 
 
 const Home = () => {
@@ -12,6 +13,7 @@ const Home = () => {
         <Hero/>
         <Article/>
         <Event/>
+        <Footer/>
       </div>
     );
 }
