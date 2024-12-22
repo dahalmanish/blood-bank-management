@@ -12,6 +12,8 @@ const DonateForm = () => {
     gender: '',
     bloodGroup: '',
   });
+  const [successMessage, setSuccessMessage] = useState(''); // State for success message
+  const [errorMessage, setErrorMessage] = useState(''); // State for error message
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,25 +22,51 @@ const DonateForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSuccessMessage(''); // Clear previous success message
+    setErrorMessage(''); // Clear previous error message
     try {
       const response = await axios.post('http://localhost:5000/donate', formData);
-      alert(response.data.message);
+      if (response.status === 200 || response.status === 201) {
+        setSuccessMessage('Form submitted successfully!');
+        setFormData({
+          username: '',
+          password: '',
+          phone: '',
+          email: '',
+          dob: '',
+          gender: '',
+          bloodGroup: '',
+        }); // Reset form fields
+      }
     } catch (error) {
       console.error('Error submitting form:', error);
-      alert('Failed to submit the form');
+      setErrorMessage('Failed to submit the form. Please try again.');
     }
   };
 
   return (
     <div className="container mx-auto flex justify-center">
       <form 
-        className="relative w-1/2 mt-8 p-8 bg-red-500 rounded-lg shadow-lg"
+        className="relative w-full md:w-1/2 mt-8 p-8 bg-red-500 rounded-lg shadow-lg"
         onSubmit={handleSubmit}
       >
         <h1 className="uppercase text-white font-bold text-3xl mb-5">
           Please Fill Up the Form
         </h1>
 
+        {/* Success and Error Messages */}
+        {successMessage && (
+          <div className="bg-green-100 text-green-700 p-4 mb-4 rounded">
+            {successMessage}
+          </div>
+        )}
+        {errorMessage && (
+          <div className="bg-red-100 text-red-700 p-4 mb-4 rounded">
+            {errorMessage}
+          </div>
+        )}
+
+        {/* Form Fields */}
         <div className="mb-4">
           <label htmlFor="username" className="block text-white text-2xl">Name:</label>
           <input 

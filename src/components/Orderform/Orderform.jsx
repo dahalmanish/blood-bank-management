@@ -8,34 +8,39 @@ const OrderBlood = () => {
     name: '',
     phone: '',
     bloodGroup: '',
-    message: '',
   });
+
+  const [matchingUsers, setMatchingUsers] = useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(value);
     setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/order', formData);
-      alert(response.data.message);
+      // Send the form data to the server
+      // await axios.post('http://localhost:5000/order', formData); // Submit the order data to the server
+  
+      // Fetch matching users based on the submitted form data
+      const usersResponse = await axios.post("http://localhost:5000/matching-users",formData);
+      setMatchingUsers(usersResponse.data.users);
     } catch (error) {
       console.error('Error submitting form:', error);
-      alert('Failed to submit form. Please try again.');
+      alert('Response not received');
     }
   };
+  
 
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       <div className="container mx-auto flex justify-center">
         <form onSubmit={handleSubmit} className="relative w-1/2 mt-8 p-8 bg-red-500">
           <div className="text-white absolute top-4 right-3 text-3xl">&times;</div>
-          <h1 className="uppercase text-white font-bold text-3xl mb-5">
-            Please Fill up the Form
-          </h1>
+          <h1 className="uppercase text-white font-bold text-3xl mb-5">Please Fill up the Form</h1>
 
           <div className="text-white text-2xl">
             <label htmlFor="name" className="text-white">Name:</label>
@@ -84,24 +89,37 @@ const OrderBlood = () => {
             </select>
           </div>
 
-          <div className="flex justify-center text-white text-2xl">
-            <label className="mr-8" htmlFor="message">Message:</label>
-            <textarea
-              cols="30"
-              rows="3"
-              type="text"
-              name="message"
-              className="text-black rounded-lg p-2"
-              value={formData.message}
-              onChange={handleChange}
-            />
-          </div>
-
           <div className="flex gap-3 justify-center flex-col mt-4">
             <Button title="SUBMIT" />
           </div>
         </form>
       </div>
+
+      {/* Display Matching Users */}
+      {matchingUsers.length > 0 && (
+  <div className="container mx-auto mt-8 p-8 bg-white rounded shadow-md">
+    <h2 className="text-2xl font-semibold mb-4">Matching Users</h2>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {matchingUsers.map((user, index) => (
+        <div
+          key={index}
+          className="p-4 bg-gray-100 rounded-lg shadow hover:shadow-lg transition duration-200"
+        >
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold text-black">Username:{user.name}</h3>
+            <span className="bg-red-500 text-white text-xs px-2 py-1 rounded">
+              {user.bloodGroup}
+            </span>
+          </div>
+          <p className="text-gray-600 mb-2">
+            <span className="font-semibold">Phone:</span> {user.phone}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+
     </div>
   );
 };
